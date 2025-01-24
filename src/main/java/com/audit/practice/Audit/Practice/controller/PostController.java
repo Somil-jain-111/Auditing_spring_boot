@@ -25,10 +25,13 @@ public class PostController {
 
     @PostMapping("/upload")
   public ResponseEntity<UploadPostDto>  createPost(@RequestBody UploadPostDto uploadPost){
-        System.out.println("ssssssss");
-        System.out.println(uploadPost);
         return ResponseEntity.ok(postService.createPost(uploadPost)) ;
     }
 
+
+    @PutMapping("{postId}")
+    public ResponseEntity<UploadPostDto>  updatePost(@RequestBody UploadPostDto inputPost,@PathVariable Long postId ){
+        return ResponseEntity.ok(postService.updatePost(inputPost,postId)) ;
+    }
 
 }
