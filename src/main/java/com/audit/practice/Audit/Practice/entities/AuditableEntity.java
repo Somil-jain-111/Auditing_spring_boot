@@ -1,10 +1,9 @@
 package com.audit.practice.Audit.Practice.entities;
 
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -13,19 +12,19 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "post")
+@MappedSuperclass
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class PostEntity extends  AuditableEntity{
+@EntityListeners(AuditingEntityListener.class)
+public class AuditableEntity {
+    @CreatedDate
+    private LocalDateTime createdDate;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @LastModifiedDate
+    private LocalDateTime updatedDate;
 
-    private String title;
+    @CreatedBy
+    private  String createdBy;
 
-    private  String description;
-
+    @LastModifiedBy
+    private  String updatedBy;
 }
